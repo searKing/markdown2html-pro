@@ -1,6 +1,6 @@
 {
   "name": "markdown-2-html-pro",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A parser of Markdown and a render to html",
   "license": "MIT",
   "repository": "https://github.com/searKing/markdown2html-pro",

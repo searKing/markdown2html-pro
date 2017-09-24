@@ -57,7 +57,7 @@ markdown2htmlPro.markdown2html(markdownContent);
 - To use the `Markdown2HtmlPro` class in a JavaScript file -
 
 ```js
-const Markdown2HtmlPro = require('markdown2html-pro').Greeter;
+const Markdown2HtmlPro = require('markdown2html-pro').Markdown2HtmlPro;
 const markdownContent = "";
 
 const markdown2htmlPro = new Markdown2HtmlPro();
