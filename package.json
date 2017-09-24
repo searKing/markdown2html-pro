@@ -1,16 +1,18 @@
 {
   "name": "markdown-2-html-pro",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "markdown-2-html-pro",
   "license": "MIT",
-  "repository": "",
+  "repository": "https://github.com/searKing/markdown2html-pro",
+  "bugs": "https://github.com/searKing/markdown2html-pro/issues",
+  "homepage": "https://github.com/searKing/markdown2html-pro/blob/master/README.md",
   "author": {
-    "name": "",
-    "email": "",
-    "url": ""
+    "name": "Haixin Chen",
+    "email": "471030698@qq.com",
+    "url": "https://github.com/searKing"
   },
   "keywords": [
-    ""
+    "markdown", "html", "markdown-it"
   ],
   "files": [
     "lib"
@@ -29,9 +31,11 @@
     "watch": "npm run build -- --watch",
     "watch:test": "jest --watch"
   },
-  "dependencies": {},
+  "dependencies": {
+  },
   "devDependencies": {
     "@types/jest": "^20.0.5",
+    "@types/lodash": "^4.14.74",
     "@types/node": "^8.0.0",
     "coveralls": "^2.0.0",
     "jest": "^20.0.4",
