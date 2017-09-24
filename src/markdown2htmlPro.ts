@@ -9,7 +9,7 @@ import './utils/json';
 import { Log } from './utils/log';
 
 export interface IMarkdown2HtmlPro {
-  markdown2html(markdown: string, options: IDefaultOptions): string;
+  markdown2html(markdown: string): string;
 }
 export class Markdown2HtmlPro implements IMarkdown2HtmlPro {
   private options: IDefaultOptions;
