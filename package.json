@@ -1,7 +1,7 @@
 {
   "name": "markdown-2-html-pro",
   "version": "0.0.1",
-  "description": "markdown-2-html-pro",
+  "description": "A parser of Markdown and a render to html",
   "license": "MIT",
   "repository": "https://github.com/searKing/markdown2html-pro",
   "bugs": "https://github.com/searKing/markdown2html-pro/issues",
@@ -12,7 +12,9 @@
     "url": "https://github.com/searKing"
   },
   "keywords": [
-    "markdown", "html", "markdown-it"
+    "markdown",
+    "html",
+    "markdown-it"
   ],
   "files": [
     "lib"
@@ -32,6 +34,8 @@
     "watch:test": "jest --watch"
   },
   "dependencies": {
+    "markdown-it": "^8.4.0",
+    "markdown-it-task-lists": "^2.0.1"
   },
   "devDependencies": {
     "@types/jest": "^20.0.5",
