@@ -19,7 +19,7 @@ export class Markdown2HtmlPro implements IMarkdown2HtmlPro {
     emoji: true,
     expandTabs: true,
     lazyHeaders: true,
-    taskLists: true
+    taskLists: true,
   };
 
   constructor(options: IDefaultOptions = {}) {
@@ -44,7 +44,7 @@ export class Markdown2HtmlPro implements IMarkdown2HtmlPro {
       emoji: this.options.emoji,
       expandTabs: this.options.expandTabs,
       lazyHeaders: this.options.lazyHeaders,
-      taskLists: this.options.taskLists
+      taskLists: this.options.taskLists,
     };
     const render: IMarkdownRender = new MarkdownRender(markdownRenderOptions);
     html = render.renderToHtml(markdown);
