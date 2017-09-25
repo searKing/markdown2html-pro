@@ -86,3 +86,7 @@ var html = marky("# hello, I'm markdown")
 npm install
 npm test
 ```
+
+## Thanks to
+
++ [marky-markdown](https://github.com/npm/marky-markdown).

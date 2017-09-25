@@ -16,16 +16,10 @@ export class Markdown2HtmlPro implements IMarkdown2HtmlPro {
   // tslint:disable-next-line:member-ordering
   private defaultOptions: IDefaultOptions = {
     debug: false,
-    enableHeadingLinkIcons: true,
-    headingAnchorClass: 'anchor',
-    headingSvgClass: ['octicon', 'octicon-link'],
-    highlightSyntax: true,
-    linkify: true,
-    package: null,
-    prefixHeadingIds: true,
-    sanitize: true,
-    serveImagesWithCDN: false,
-    supportTaskList: true,
+    emoji: true,
+    expandTabs: true,
+    lazyHeaders: true,
+    taskLists: true
   };
 
   constructor(options: IDefaultOptions = {}) {
@@ -47,7 +41,10 @@ export class Markdown2HtmlPro implements IMarkdown2HtmlPro {
 
     this.log(this.banner());
     const markdownRenderOptions: IMarkdownRenderOptions = {
-      taskLists: true,
+      emoji: this.options.emoji,
+      expandTabs: this.options.expandTabs,
+      lazyHeaders: this.options.lazyHeaders,
+      taskLists: this.options.taskLists
     };
     const render: IMarkdownRender = new MarkdownRender(markdownRenderOptions);
     html = render.renderToHtml(markdown);

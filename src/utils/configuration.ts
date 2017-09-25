@@ -4,14 +4,8 @@ import './utils/json';
 
 export interface IDefaultOptions {
   debug?: boolean;
-  enableHeadingLinkIcons?: boolean;
-  headingAnchorClass?: string;
-  headingSvgClass?: string[];
-  highlightSyntax?: boolean;
-  linkify?: boolean;
-  package?: any;
-  prefixHeadingIds?: boolean;
-  sanitize?: boolean;
-  serveImagesWithCDN?: boolean;
-  supportTaskList?: boolean;
+  emoji?: boolean;
+  expandTabs?: boolean;
+  lazyHeaders?: boolean;
+  taskLists?: boolean;
 }

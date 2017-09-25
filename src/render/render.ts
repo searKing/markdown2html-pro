@@ -2,9 +2,13 @@
 export interface IMarkdownRender {
   renderToHtml(mdContent: string): string;
 }
+
 export interface IMarkdownRenderOptions {
   debug?: boolean;
   linkify?: boolean;
+  emoji?: boolean;
+  expandTabs?: boolean;
+  lazyHeaders?: boolean;
   taskLists?: boolean;
 }
 // import {MarkdownIt } from "markdown-it";
@@ -28,6 +32,15 @@ export class MarkdownRender implements IMarkdownRender {
     if (this.options.taskLists) {
       this.modules.taskLists = require('markdown-it-task-lists');
     }
+    if (this.options.lazyHeaders) {
+      this.modules.lazyHeaders = require('markdown-it-lazy-headers');
+    }
+    if (this.options.emoji) {
+      this.modules.emoji = require('markdown-it-emoji');
+    }
+    if (this.options.expandTabs) {
+      this.modules.expandTabs = require('markdown-it-expand-tabs');
+    }
   }
   private getRenderer(): any {
     const mdOptions = {
@@ -42,6 +55,15 @@ export class MarkdownRender implements IMarkdownRender {
     });
     if (this.options.taskLists) {
       renderer.use(this.modules.taskLists, { enabled: true, label: true });
+    }
+    if (this.options.lazyHeaders) {
+      renderer.use(this.modules.lazyHeaders, {});
+    }
+    if (this.options.emoji) {
+      renderer.use(this.modules.emoji, { shortcuts: {} });
+    }
+    if (this.options.expandTabs) {
+      renderer.use(this.modules.expandTabs, { tabWidth: 4 });
     }
 
     return renderer;
