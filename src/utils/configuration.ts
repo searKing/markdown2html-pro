@@ -8,4 +8,15 @@ export interface IDefaultOptions {
   expandTabs?: boolean;
   lazyHeaders?: boolean;
   taskLists?: boolean;
+  abbr?: boolean;
+  anchor?: boolean;
+  attrs?: boolean;
+  container?: boolean;
+  deflist?: boolean;
+  footnote?: boolean;
+  highlightjs?: boolean;
+  ins?: boolean;
+  mark?: boolean;
+  sub?: boolean;
+  sup?: boolean;
 }

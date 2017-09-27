@@ -15,10 +15,20 @@ export class Markdown2HtmlPro implements IMarkdown2HtmlPro {
   private options: IDefaultOptions;
   // tslint:disable-next-line:member-ordering
   private defaultOptions: IDefaultOptions = {
+    abbr: true,
+    anchor: true,
+    attrs: true,
     debug: false,
+    deflist: true,
     emoji: true,
     expandTabs: true,
+    footnote: true,
+    highlightjs: true,
+    ins: true,
     lazyHeaders: true,
+    mark: true,
+    sub: true,
+    sup: true,
     taskLists: true,
   };
 
