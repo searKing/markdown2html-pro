@@ -28,8 +28,15 @@ const taskListExpect: string = `<h4>GFM task list</h4>
 </li>
 </ul>
 `;
-
-test('Should greet with message', () => {
+(async () => {
   const markdown2htmlPro = new Markdown2HtmlPro();
-  expect(markdown2htmlPro.markdown2html(taskList)).toBe(taskListExpect);
+  const taskListActual: string = await markdown2htmlPro.markdown2html(taskList);
+
+  test('Should greet with message', () => {
+    expect(taskListActual).toBe(taskListExpect);
+  });
+})();
+
+test('Should have Markdown2HtmlPro available', () => {
+  expect(Markdown2HtmlPro).toBeTruthy();
 });

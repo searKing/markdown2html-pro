@@ -9,7 +9,7 @@ import './utils/json';
 import { Log } from './utils/log';
 
 export interface IMarkdown2HtmlPro {
-  markdown2html(markdown: string): string;
+  markdown2html(markdown: string): Promise<string>;
 }
 export class Markdown2HtmlPro implements IMarkdown2HtmlPro {
   private options: IDefaultOptions;
@@ -27,6 +27,7 @@ export class Markdown2HtmlPro implements IMarkdown2HtmlPro {
     ins: true,
     lazyHeaders: true,
     mark: true,
+    mermaid: true,
     sub: true,
     sup: true,
     taskLists: true,
@@ -42,28 +43,30 @@ export class Markdown2HtmlPro implements IMarkdown2HtmlPro {
     return this;
   }
 
-  public markdown2html(markdown: string): string {
-    let html: string = '';
-
+  public markdown2html(markdown: string): Promise<string> {
     if (typeof markdown !== 'string') {
       throw Error('first argument must be a string');
     }
 
-    this.log(this.banner());
-    const markdownRenderOptions: IMarkdownRenderOptions = {
-      emoji: this.options.emoji,
-      expandTabs: this.options.expandTabs,
-      lazyHeaders: this.options.lazyHeaders,
-      taskLists: this.options.taskLists,
-    };
-    const render: IMarkdownRender = new MarkdownRender(markdownRenderOptions);
-    html = render.renderToHtml(markdown);
+    return (async (): Promise<string> => {
+      let html: string = '';
 
-    if (this.options.debug) {
-      html = this.debugHeader() + '\n' + html;
-    }
+      this.log(this.banner());
+      const markdownRenderOptions: IMarkdownRenderOptions = {
+        emoji: this.options.emoji,
+        expandTabs: this.options.expandTabs,
+        lazyHeaders: this.options.lazyHeaders,
+        taskLists: this.options.taskLists,
+      };
+      const render: IMarkdownRender = new MarkdownRender(markdownRenderOptions);
+      html = await render.renderToHtml(markdown);
 
-    return html;
+      if (this.options.debug) {
+        html = this.debugHeader() + '\n' + html;
+      }
+
+      return html;
+    })();
   }
   private log(msg: string): void {
     if (this.options.debug) {

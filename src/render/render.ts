@@ -1,6 +1,6 @@
 'use strict';
 export interface IMarkdownRender {
-  renderToHtml(mdContent: string): string;
+  renderToHtml(mdContent: string): Promise<string>;
 }
 
 export interface IMarkdownRenderOptions {
@@ -20,6 +20,7 @@ export interface IMarkdownRenderOptions {
   mark?: boolean;
   sub?: boolean;
   sup?: boolean;
+  mermaid?: boolean;
 }
 // import {MarkdownIt } from "markdown-it";
 // let taskLists = require('markdown-it-task-lists');
@@ -31,11 +32,17 @@ export class MarkdownRender implements IMarkdownRender {
     this.modules = {};
     return this;
   }
-  public renderToHtml(mdContent: string): string {
+
+  public renderToHtml(mdContent: string): Promise<string> {
     this.loadModules();
     const renderer = this.getRenderer();
-
-    return renderer.render(mdContent);
+    return (async (): Promise<string> => {
+      let tmpMdContent: string = mdContent;
+      if (this.options.mermaid) {
+        tmpMdContent = await this.modules.mermaid.mermaid2html(mdContent);
+      }
+      return renderer.render(tmpMdContent);
+    })();
   }
   private loadModules() {
     this.modules.MarkdownIt = require('markdown-it');
@@ -80,6 +87,9 @@ export class MarkdownRender implements IMarkdownRender {
     }
     if (this.options.sup) {
       this.modules.sup = require('markdown-it-sup');
+    }
+    if (this.options.mermaid) {
+      this.modules.mermaid = require('markdown-it-mermaid-pro');
     }
   }
   private getRenderer(): any {
@@ -135,7 +145,9 @@ export class MarkdownRender implements IMarkdownRender {
     if (this.options.sup) {
       renderer.use(this.modules.sup, {});
     }
-
+    // if (this.options.mermaid){
+    // markdown-it does not support Promise yet, so we have a trick otherwhere
+    // }
     return renderer;
   }
 }

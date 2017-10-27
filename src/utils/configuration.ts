@@ -19,4 +19,5 @@ export interface IDefaultOptions {
   mark?: boolean;
   sub?: boolean;
   sup?: boolean;
+  mermaid?: boolean;
 }
