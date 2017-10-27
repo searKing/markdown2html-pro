@@ -53,9 +53,21 @@ export class Markdown2HtmlPro implements IMarkdown2HtmlPro {
 
       this.log(this.banner());
       const markdownRenderOptions: IMarkdownRenderOptions = {
+        abbr: this.options.abbr,
+        anchor: this.options.anchor,
+        attrs: this.options.attrs,
+        debug: this.options.debug,
+        deflist: this.options.deflist,
         emoji: this.options.emoji,
         expandTabs: this.options.expandTabs,
+        footnote: this.options.footnote,
+        highlightjs: this.options.highlightjs,
+        ins: this.options.ins,
         lazyHeaders: this.options.lazyHeaders,
+        mark: this.options.mark,
+        mermaid: this.options.mermaid,
+        sub: this.options.sub,
+        sup: this.options.sup,
         taskLists: this.options.taskLists,
       };
       const render: IMarkdownRender = new MarkdownRender(markdownRenderOptions);
