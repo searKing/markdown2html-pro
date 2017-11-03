@@ -1,4 +1,7 @@
 'use strict';
+import markdownItMermaidPro = require('markdown-it-mermaid-pro');
+import * as path from 'path';
+
 export interface IMarkdownRender {
   renderToHtml(mdContent: string): Promise<string>;
 }
@@ -33,16 +36,34 @@ export class MarkdownRender implements IMarkdownRender {
     return this;
   }
 
-  public renderToHtml(mdContent: string): Promise<string> {
+  public async renderToHtml(mdContent: string): Promise<string> {
     this.loadModules();
-    const renderer = this.getRenderer();
-    return (async (): Promise<string> => {
-      let tmpMdContent: string = mdContent;
-      if (this.options.mermaid) {
-        tmpMdContent = await this.modules.mermaid.mermaid2html(mdContent);
+    let cms: string[] = [];
+    if (this.options.mermaid) {
+      cms = await this.getInitOptions(mdContent);
+    }
+    const renderer = this.getRenderer(cms);
+    return renderer.render(mdContent);
+  }
+  private async getInitOptions(markdownContent: string): Promise<string[]> {
+    if (this.options.mermaid) {
+      if (typeof markdownContent !== 'string') {
+        throw Error('first argument must be a string');
       }
-      return renderer.render(tmpMdContent);
-    })();
+
+      const defaultRootWebPath = path.join(__dirname, '..');
+      // console.log('defaultRootWebPath= ', defaultRootWebPath);
+      const options = {
+        rootWebPath: defaultRootWebPath,
+      };
+
+      const cms: string[] = await this.modules.mermaid.mermaid_pro_plugin_init_everytime(
+        markdownContent
+      );
+
+      return cms;
+    }
+    return [];
   }
   private loadModules() {
     this.modules.MarkdownIt = require('markdown-it');
@@ -92,7 +113,7 @@ export class MarkdownRender implements IMarkdownRender {
       this.modules.mermaid = require('markdown-it-mermaid-pro');
     }
   }
-  private getRenderer(): any {
+  private getRenderer(cms: string[]): any {
     const mdOptions = {
       html: true,
       langPrefix: 'highlight ',
@@ -145,9 +166,10 @@ export class MarkdownRender implements IMarkdownRender {
     if (this.options.sup) {
       renderer.use(this.modules.sup, {});
     }
-    // if (this.options.mermaid){
-    // markdown-it does not support Promise yet, so we have a trick otherwhere
-    // }
+    if (this.options.mermaid) {
+      // markdown - it does not support Promise yet, so we have a trick otherwhere
+      renderer.use(this.modules.mermaid, { contentMaps: cms });
+    }
     return renderer;
   }
 }
